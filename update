@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export HOME=/var/www
+#leave this svn/git update as the last thing executed
+svn update /var/www/einstein/live/
+
+function pull {
+  pushd $1
+  git pull
+  popd
+}
+
+pull /var/www/einstein/live/manifest
+pull /var/www/einstein/www
+pull /var/www/einstein/seminars
+pull /var/www/einstein/testsuite_results
