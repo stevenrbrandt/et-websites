@@ -19,6 +19,7 @@ RUN sed -ie "s/;\(sendmail_path =\).*$/\1 \/usr\/sbin\/ssmtp -t/" /etc/php/7.0/c
 RUN rm -fr /var/www/html
 WORKDIR /var/www
 WORKDIR /var/www/einstein
+# Do we really use the svn site for anything?
 RUN svn checkout https://svn.einsteintoolkit.org/www live
 WORKDIR /var/www/einstein/live
 RUN git clone https://bitbucket.org/einsteintoolkit/manifest
@@ -26,6 +27,8 @@ WORKDIR /var/www/einstein
 RUN git clone https://stevenrbrandt@bitbucket.org/einsteintoolkit/www.git 
 RUN git clone https://bitbucket.org/einsteintoolkit/seminars.git
 RUN git clone https://knarrff@bitbucket.org/einsteintoolkit/testsuite_results.git
+
+# The user that apache2 uses to access the files is www-data
 RUN find . -exec chown www-data '{}' \;
 
 # Re-run from here at the beginning of every release.
@@ -42,8 +45,10 @@ COPY update update
 RUN chmod +x update
 RUN cp www/update.php www/x.php
 
-# If you wish to run without https support, you need to comment out the 443 section.
-# If you wish to run with https support, you need to bind the /etc/pki-etk directory where the cert and key are stored.
+# If you wish to run without https support, just run the container.
+# If you want https support, you should have the following files installed:
+#   /etc/pki-etk/tls/private/einsteintoolkit.org.key
+#   /etc/pki-etk/tls/certs/einsteintoolkit.org.crt
 # docker run -d -v /etc/pki-etk:/etc/pki-etk --rm -p 443:443 -p 80:80 stevenrbrandt/etk-website
 WORKDIR /etc/apache2/conf-enabled
 COPY etk.conf etk.conf
