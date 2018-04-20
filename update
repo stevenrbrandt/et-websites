@@ -1,5 +1,7 @@
 #!/bin/bash
 
+/usr/bin/id
+
 export HOME=/var/www
 #leave this svn/git update as the last thing executed
 svn update /var/www/einstein/live/
