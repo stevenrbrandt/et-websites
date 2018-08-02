@@ -1,6 +1,4 @@
 #!/bin/bash
-cd /tmp
-curl -kLO https://einsteintoolkit.org/update.php/?update
 cd /root
 # Detect if the key is there...
 if [ -r /etc/pki-etk/tls/private/einsteintoolkit.org.key ]
