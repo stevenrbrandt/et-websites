@@ -1,15 +1,8 @@
 #!/bin/bash
+cd /tmp
+curl -kLO https://einsteintoolkit.org/update.php/?update
+cd /root
 # Detect if the key is there...
-cd /var/www/einstein/live
-svn update
-cd /var/www/einstein/live/manifest
-git pull
-cd /var/www/einstein/www
-git pull
-cd /var/www/einstein/seminars
-git pull
-cd /var/www/einstein/testsuite_results
-git pull
 if [ -r /etc/pki-etk/tls/private/einsteintoolkit.org.key ]
 then
     # If it is, enable ssl
