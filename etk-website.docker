@@ -3,7 +3,8 @@
 FROM debian
 
 RUN apt-get update
-RUN apt-get install -y apache2 git subversion libapache2-mod-php vim curl systemd ssmtp libdate-manip-perl
+RUN apt-get install -y apache2 git subversion libapache2-mod-php vim curl \
+    systemd ssmtp libdate-manip-perl libwww-perl
 
 # Configure mail
 RUN sed -ie "s/\(mailhub=\).*$/\1mail.cct.lsu.edu/" /etc/ssmtp/ssmtp.conf
