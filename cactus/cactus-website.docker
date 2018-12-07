@@ -1,0 +1,21 @@
+# The cactuscode.org website.
+
+FROM debian
+RUN apt-get update
+RUN apt-get install -y apache2 git subversion libapache2-mod-php vim curl systemd
+RUN rm -fr /var/www/html
+WORKDIR /var/www
+RUN svn checkout https://svn.cactuscode.org/www live
+RUN svn checkout https://svn.cactuscode.org/www dev
+
+RUN a2enmod ssl rewrite speling
+RUN ln -s /var/log/apache2 /etc/apache2/logs
+WORKDIR /etc/apache2/conf-enabled
+
+# If you wish to run without https support, you need to comment out the 443 section.
+# If you wish to run with https support, you need to bind the /etc/pki-etk directory where the cert and key are stored.
+# docker run -d -v /etc/pki-etk:/etc/pki-etk --rm -p 443:443 -p 80:80 stevenrbrandt/etk-website
+# After booting, please call the update page to ensure the site is current.
+COPY cactus.conf cactus.conf
+
+CMD /usr/sbin/apache2ctl -D FOREGROUND
