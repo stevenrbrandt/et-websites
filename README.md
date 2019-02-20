@@ -5,7 +5,7 @@ How to build the cactus &amp; et website
   
 Running the website on your laptop without https
 
-  docker run -p 8080:80 stevenrbrandt/etk-website
+  docker run -p 8080:80 etk-website
   
 Doing the above will allow you to access the website on localhost:8080 on your own computer.
 If you want https, you need to find a key and a crt file.
