@@ -43,7 +43,7 @@ RUN ln -s /var/log/apache2 /etc/apache2/logs
 # Allows the site to update
 WORKDIR /var/www/einstein
 COPY update update
-RUN chmod +x update
+RUN chmod +rx update
 RUN cp www/update.php www/x.php
 
 # If you wish to run without https support, just run the container.
