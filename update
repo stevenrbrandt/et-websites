@@ -9,6 +9,7 @@ svn update /var/www/einstein/live/
 function pull {
   pushd $1
   git pull
+  git clean -dxf
   popd
 }
 
