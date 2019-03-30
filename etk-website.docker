@@ -32,11 +32,6 @@ RUN git clone https://knarrff@bitbucket.org/einsteintoolkit/testsuite_results.gi
 # The user that apache2 uses to access the files is www-data
 RUN find . -exec chown www-data '{}' \;
 
-# Re-run from here at the beginning of every release.
-RUN curl -kLO https://build-test.barrywardell.net/job/EinsteinToolkit/lastSuccessfulBuild/artifact/doc/HTML.tar.gz
-RUN tar xzf HTML.tar.gz
-RUN mv HTML documentation
-
 RUN a2enmod ssl rewrite speling
 RUN ln -s /var/log/apache2 /etc/apache2/logs
 

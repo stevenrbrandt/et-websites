@@ -7,13 +7,28 @@ export HOME=/var/www
 svn update /var/www/einstein/live/
 
 function pull {
-  pushd $1
+  pushd $1 >/dev/null
+  echo "Updating $1"
   git pull
   git clean -dxf
-  popd
+  popd >/dev/null
 }
 
 pull /var/www/einstein/live/manifest
 pull /var/www/einstein/www
 pull /var/www/einstein/seminars
 pull /var/www/einstein/testsuite_results
+
+pushd /var/www/einstein >/dev/null
+if curl -kLORsS https://build-test.barrywardell.net/job/EinsteinToolkitReleased/lastSuccessfulBuild/artifact/doc/HTML.tar.gz ; then
+  if [ HTML.tar.gz -nt HTML.tar.gz.old ] ; then
+    echo "Updating HTML documentation"
+    if tar xzf HTML.tar.gz ; then
+      chmod o+rX -R HTML
+      rm -rf documentation
+      mv HTML documentation
+    fi
+    mv HTML.tar.gz HTML.tar.gz.old
+  fi
+fi
+popd >/dev/null
