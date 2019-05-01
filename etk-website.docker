@@ -45,7 +45,7 @@ RUN cp www/update.php www/x.php
 # If you want https support, you should have the following files installed:
 #   /etc/pki-etk/tls/private/einsteintoolkit.org.key
 #   /etc/pki-etk/tls/certs/einsteintoolkit.org.crt
-# docker run -d -v /etc/pki-etk:/etc/pki-etk --rm -p 443:443 -p 80:80 stevenrbrandt/etk-website
+# docker run -d --restart=always -v /etc/pki-etk:/etc/pki-etk --rm -p 443:443 -p 80:80 stevenrbrandt/etk-website
 WORKDIR /etc/apache2/conf-enabled
 COPY etk.conf etk.conf
 
