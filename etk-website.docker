@@ -53,5 +53,6 @@ COPY etk.conf etk.conf
 WORKDIR /root
 COPY etk-ssl.conf etk-ssl.conf
 COPY startup.sh startup.sh
+RUN mkdir -p /var/www/html
 
 CMD bash startup.sh

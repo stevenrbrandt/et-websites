@@ -27,12 +27,12 @@ if curl $zflag -kLORsS https://build-test.barrywardell.net/job/EinsteinToolkitRe
   # even with -z I still need this check to avoid untarring files
   if [ HTML.tar.gz -nt HTML.tar.gz.old ] ; then
     echo "Updating HTML documentation"
-    if tar xzf HTML.tar.gz ; then
-      chmod o+rX -R HTML
-      rm -rf documentation
-      mv HTML documentation
-    fi
-    mv HTML.tar.gz HTML.tar.gz.old
+      if tar xzf HTML.tar.gz ; then
+        chmod o+rX -R HTML
+        rm -rf documentation
+        mv HTML documentation
+      fi
+      mv HTML.tar.gz HTML.tar.gz.old
   fi
 fi
 popd >/dev/null
