@@ -173,3 +173,4 @@ $wgReCaptchaSecretKey = '6Lf8LWgUAAAAAANltJhkY_UDTLAmvRlDH3P4yWR_';
 // T.Wright - ConfirmEdit: Allow users with confirmed email addresses to post links.
 $wgGroupPermissions['emailconfirmed']['skipcaptcha'] = true;
 $ceAllowConfirmedEmail = true;
+$wgGroupPermissions['*']['createaccount'] = false;
