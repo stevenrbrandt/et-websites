@@ -1,6 +1,6 @@
 # The einsteintoolkit.org website.
 
-FROM debian
+FROM debian:9.7
 
 RUN apt-get update && \
     apt-get install -y apache2 git subversion libapache2-mod-php php-curl \
