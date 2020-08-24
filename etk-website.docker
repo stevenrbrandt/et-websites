@@ -26,9 +26,9 @@ RUN svn checkout https://svn.einsteintoolkit.org/www live
 WORKDIR /var/www/einstein/live
 RUN git clone https://bitbucket.org/einsteintoolkit/manifest
 WORKDIR /var/www/einstein
-RUN git clone https://stevenrbrandt@bitbucket.org/einsteintoolkit/www.git 
+RUN git clone https://bitbucket.org/einsteintoolkit/www.git 
 RUN git clone https://bitbucket.org/einsteintoolkit/seminars.git
-RUN git clone https://knarrff@bitbucket.org/einsteintoolkit/testsuite_results.git
+RUN git clone https://bitbucket.org/einsteintoolkit/testsuite_results.git
 
 # The user that apache2 uses to access the files is www-data
 RUN find . -exec chown www-data '{}' \;
