@@ -1,0 +1,38 @@
+# docker-compose to start/restart the website.
+# Normally, this is kept in a directory named "etk"
+# inside root's home directory.
+version: '3'
+
+# To restart:
+# docker-compose pull
+# docker-compose down
+# docker-compose up -d
+
+services:
+    etk-website:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: stevenrbrandt/et-wiki
+        deploy:
+            restart_policy:
+                condition: any
+                delay: 10s
+                max_attempts: 10
+                window: 30s
+
+        # This setting makes it possible to
+        # get a bash shell in the container
+        # by typing 'docker exec -it web bash'
+        container_name: wiki
+
+        restart: always
+
+        ports:
+            - 80:80
+            - 443:443
+
+        # Mounting /etc/pki-etk is needed
+        # if you want https to work.
+        volumes:
+            - /etc/pki-etk:/etc/pki-etk
