@@ -23,7 +23,7 @@ pushd /var/www/einstein >/dev/null
 if [ -e HTML.tar.gz.old ] ; then
   zflag="-z HTML.tar.gz.old"
 fi
-if curl $zflag -kLORsS https://build-test.barrywardell.net/job/EinsteinToolkitReleased/lastSuccessfulBuild/artifact/doc/HTML.tar.gz ; then
+if curl $zflag -kLORsS https://build-test.barrywardell.net/job/EinsteinToolkitDoc/lastSuccessfulBuild/artifact/doc/HTML.tar.gz ; then
   # even with -z I still need this check to avoid untarring files
   if [ HTML.tar.gz -nt HTML.tar.gz.old ] ; then
     echo "Updating HTML documentation"
