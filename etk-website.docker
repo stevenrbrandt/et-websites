@@ -1,30 +1,22 @@
 # The einsteintoolkit.org website.
 
-FROM debian:9.7
+FROM debian:10
 
 RUN apt-get update && \
     apt-get install -y apache2 git subversion libapache2-mod-php php-curl \
-    vim curl systemd ssmtp libdate-manip-perl libwww-perl && \
+    vim curl systemd libdate-manip-perl libwww-perl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Configure mail
-RUN sed -ie "s/\(mailhub=\).*$/\1mail.cct.lsu.edu/" /etc/ssmtp/ssmtp.conf
-RUN sed -ie "s/\(hostname=\).*$/\1einsteintoolkit.org/" /etc/ssmtp/ssmtp.conf
-RUN sed -ie "s/.FromLineOverride=YES/FromLineOverride=YES/" /etc/ssmtp/ssmtp.conf
-
-#  Configuration for Apache2
-RUN sed -ie "s/;\(sendmail_path =\).*$/\1 \/usr\/sbin\/ssmtp -t/" /etc/php/7.0/apache2/php.ini
-
-#  Configuration for CLI
-RUN sed -ie "s/;\(sendmail_path =\).*$/\1 \/usr\/sbin\/ssmtp -t/" /etc/php/7.0/cli/php.ini
+# Install and configure mail
+RUN apt-get update && apt-get install -y exim4 && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN sed -ie "s/^\(dc_eximconfig_configtype=\).*$/\1'smarthost'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_other_hostnames=\).*$/\1'einsteintoolkit.org'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_smarthost=\).*$/\1'mail.cct.lsu.edu'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_readhost=\).*$/\1'einsteintoolkit.org'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_hide_mailname=\).*$/\1'true'/" /etc/exim4/update-exim4.conf.conf && \
+    update-exim4.conf
 
 RUN rm -fr /var/www/html
-WORKDIR /var/www
-WORKDIR /var/www/einstein
-# Do we really use the svn site for anything?
-RUN svn checkout https://svn.einsteintoolkit.org/www live
-WORKDIR /var/www/einstein/live
-RUN git clone https://bitbucket.org/einsteintoolkit/manifest
 WORKDIR /var/www/einstein
 RUN git clone https://bitbucket.org/einsteintoolkit/www.git 
 RUN git clone https://bitbucket.org/einsteintoolkit/seminars.git
