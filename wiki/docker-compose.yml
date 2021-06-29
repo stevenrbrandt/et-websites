@@ -14,6 +14,7 @@ services:
             context: .
             dockerfile: Dockerfile
         image: stevenrbrandt/et-wiki
+        hostname: docs.einsteintoolkit.org
         deploy:
             restart_policy:
                 condition: any
@@ -21,6 +22,7 @@ services:
                 max_attempts: 10
                 window: 30s
 
+        # entrypoint: sleep infinity
         # This setting makes it possible to
         # get a bash shell in the container
         # by typing 'docker exec -it web bash'
@@ -35,4 +37,4 @@ services:
         # Mounting /etc/pki-etk is needed
         # if you want https to work.
         volumes:
-            - /etc/pki-etk:/etc/pki-etk
+            - /etc/pki-mediawiki:/etc/pki-mediawiki:Z
