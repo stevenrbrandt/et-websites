@@ -4,7 +4,7 @@
 version: '3'
 
 # To restart:
-# docker-compose pull
+# docker pull stevenrbrandt/et-wiki
 # docker-compose down
 # docker-compose up -d
 
@@ -23,6 +23,7 @@ services:
                 window: 30s
 
         # entrypoint: sleep infinity
+        entrypoint: bash ./startup.sh
         # This setting makes it possible to
         # get a bash shell in the container
         # by typing 'docker exec -it web bash'
