@@ -26,7 +26,8 @@ RUN tar -xf mediawiki-1.31.0.tar.gz --exclude="/images" --strip-components=1 -C 
 WORKDIR /var/www/mediawiki
 COPY LocalSettings.php LocalSettings.php
 COPY .htaccess .htaccess
-
+COPY LdapAuthentication-REL1_31-b19888c.tar.gz ./
+RUN tar -xf LdapAuthentication-REL1_31-b19888c.tar.gz
 # Make sure that the www-data user ID matches the "apache/nobody/www-data" ID on the host
 # 48 in this case (NON-PORTABLE!)
 RUN usermod -u 48 www-data
@@ -49,11 +50,15 @@ RUN ln -s /var/log/apache2 /etc/apache2/logs
 WORKDIR /etc/apache2/sites-available
 COPY mediawiki.conf mediawiki.conf
 RUN a2ensite mediawiki
+
+# Get rid of apache's default that uses snakeoil certs
+RUN rm -f /etc/apache2/sites-*/default-ssl.conf
+
 #RUN a2dissite default
 
 WORKDIR /root
 
-WORKDIR /root
 COPY startup.sh startup.sh
 
-CMD bash startup.sh
+#CMD bash startup.sh
+CMD sleep infinity

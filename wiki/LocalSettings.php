@@ -170,6 +170,28 @@ $wgCaptchaClass = 'ReCaptchaNoCaptcha';
 $wgReCaptchaSiteKey = '6Lf8LWgUAAAAAGgCAbUgmeKKx12n1_DufcUiYSDe';
 $wgReCaptchaSecretKey = '6Lf8LWgUAAAAAANltJhkY_UDTLAmvRlDH3P4yWR_';
 
+require_once( "$IP/extensions/LdapAuthentication/LdapAuthentication.php" );
+$wgAuthManagerAutoConfig['primaryauth'] += [
+    LdapPrimaryAuthenticationProvider::class => [
+        'class' => LdapPrimaryAuthenticationProvider::class,
+        'args' => [[
+               'authoritative' => true, // don't allow local non-LDAP accounts
+           ]],
+        'sort' => 50, // must be smaller than local pw provider
+    ],
+];
+// The search string to be used for straight binds to the directory; USER-NAME will be
+// replaced by the username of the user logging in.
+// This option is not required (and shouldn't be provided) if you are using a proxyagent
+// and proxyagent password.
+// If you are using AD style binding (TDOMAIN\\USER-NAME or USER-NAME@TDOMAIN) and
+// want to be able to use group syncing, preference pulling, etc., you'll need to set
+// $wgLDAPBaseDNs and $wgLDAPSearchAttributes for the domain.
+$wgLDAPSearchStrings = array(
+  'testADdomain' => "TDOMAIN\\USER-NAME",
+  'testLDAPdomain' => 'uid=USER-NAME,ou=People,dc=cct,dc=lsu,dc=edu',
+);
+
 // T.Wright - ConfirmEdit: Allow users with confirmed email addresses to post links.
 $wgGroupPermissions['emailconfirmed']['skipcaptcha'] = true;
 $ceAllowConfirmedEmail = true;
