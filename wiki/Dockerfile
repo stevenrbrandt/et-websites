@@ -53,6 +53,7 @@ RUN a2ensite mediawiki
 
 # Get rid of apache's default that uses snakeoil certs
 RUN rm -f /etc/apache2/sites-*/default-ssl.conf
+RUN rm -f /etc/apache2/sites-*/000-default.conf
 
 #RUN a2dissite default
 
