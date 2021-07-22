@@ -25,6 +25,7 @@ RUN git clone https://bitbucket.org/einsteintoolkit/testsuite_results.git
 RUN find . -exec chown www-data '{}' \;
 
 RUN a2enmod ssl rewrite speling
+RUN a2ensite default-ssl
 RUN ln -s /var/log/apache2 /etc/apache2/logs
 
 # Allows the site to update

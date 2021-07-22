@@ -39,3 +39,4 @@ services:
         # if you want https to work.
         volumes:
             - /etc/pki-mediawiki:/etc/pki-mediawiki:Z
+            - /var/mediawiki-uploads:/var/www/mediawiki/mediawiki-uploads:Z

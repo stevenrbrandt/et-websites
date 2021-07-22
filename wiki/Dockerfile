@@ -36,6 +36,7 @@ RUN usermod -u 48 www-data
 RUN find . -exec chown www-data '{}' \;
 
 RUN a2enmod ssl rewrite speling python
+RUN a2ensite default-ssl
 
 RUN ln -s /var/log/apache2 /etc/apache2/logs
 
