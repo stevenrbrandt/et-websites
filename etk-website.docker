@@ -13,6 +13,7 @@ RUN sed -ie "s/^\(dc_eximconfig_configtype=\).*$/\1'smarthost'/" /etc/exim4/upda
     sed -ie "s/^\(dc_smarthost=\).*$/\1'mail.cct.lsu.edu'/" /etc/exim4/update-exim4.conf.conf && \
     sed -ie "s/^\(dc_readhost=\).*$/\1'einsteintoolkit.org'/" /etc/exim4/update-exim4.conf.conf && \
     sed -ie "s/^\(dc_hide_mailname=\).*$/\1'true'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_other_hostnames=\).*$/\1'localhost'/" /etc/exim4/update-exim4.conf.conf && \
     update-exim4.conf
 
 RUN rm -fr /var/www/html
