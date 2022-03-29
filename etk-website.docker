@@ -47,5 +47,6 @@ WORKDIR /root
 COPY etk-ssl.conf etk-ssl.conf
 COPY startup.sh startup.sh
 RUN mkdir -p /var/www/html
+RUN rm -f /etc/apache2/sites-enabled/000-default.conf
 
 CMD bash startup.sh
