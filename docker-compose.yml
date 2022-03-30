@@ -14,12 +14,12 @@ services:
            context: .
            dockerfile: etk-website.docker 
         image: stevenrbrandt/etk-website
-        #deploy:
-        #    restart_policy:
-        #        condition: any
-        #        delay: 10s
-        #        max_attempts: 10
-        #        window: 30s
+        deploy:
+            restart_policy:
+                condition: any
+                delay: 10s
+                max_attempts: 10
+                window: 30s
 
         # This setting makes it possible to
         # get a bash shell in the container
