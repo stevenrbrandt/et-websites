@@ -27,7 +27,7 @@ if curl $zflag -sSkLRO https://github.com/rhaas80/einsteintoolkit/archive/refs/t
   if [ HTML.tar.gz -nt HTML.tar.gz.old ] ; then
     echo "Updating HTML documentation"
       if tar xzf HTML.tar.gz ; then
-        chmod o+rX -R HTML
+        chmod o+rX -R einsteintoolkit-HTML
         rm -rf documentation
         mv einsteintoolkit-HTML documentation
       fi
