@@ -22,7 +22,7 @@ if [ -e HTML.tar.gz.old ] ; then
 fi
 # this used to pull from Jenkins but with Jenkins down it was changed to pull a
 # static copy
-if curl $zflag -sSkLRO https://github.com/rhaas80/einsteintoolkit/archive/refs/tags/HTML.tar.gz ; then
+if curl $zflag -sSkLRO https://github.com/einsteintoolkit/tests/archive/refs/tags/HTML.tar.gz ; then
   # even with -z I still need this check to avoid untarring files
   if [ HTML.tar.gz -nt HTML.tar.gz.old ] ; then
     echo "Updating HTML documentation"
