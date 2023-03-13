@@ -9,6 +9,8 @@ function pull {
   echo "Updating $1"
   git pull
   git clean -dxf
+  # ensure all files are visible no matter the permission bits in the repo
+  chmod o+rX -R .
   popd >/dev/null
 }
 
