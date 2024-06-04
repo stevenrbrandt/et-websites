@@ -1,20 +1,18 @@
-FROM debian:9.7
+FROM debian:10
 
 EXPOSE 443
 
 RUN apt-get update
-RUN apt-get install -y apache2 git subversion libapache2-mod-php vim curl systemd ssmtp libdate-manip-perl php7.0-mbstring php7.0-xml php7.0-mysql php7.0-intl php7.0-gd libapache2-mod-python imagemagick
+RUN apt-get install -y apache2 git subversion libapache2-mod-php vim curl systemd libdate-manip-perl php-mbstring php-xml php-mysql php-intl php-gd libapache2-mod-python imagemagick
 
-# Configure mail
-RUN sed -ie "s/\(mailhub=\).*$/\1mail.cct.lsu.edu/" /etc/ssmtp/ssmtp.conf
-RUN sed -ie "s/\(hostname=\).*$/\1einsteintoolkit.org/" /etc/ssmtp/ssmtp.conf
-RUN sed -ie "s/.FromLineOverride=YES/FromLineOverride=YES/" /etc/ssmtp/ssmtp.conf
-
-#  Configuration for Apache2
-RUN sed -ie "s/;\(sendmail_path =\).*$/\1 \/usr\/sbin\/ssmtp -t/" /etc/php/7.0/apache2/php.ini
-
-#  Configuration for CLI
-RUN sed -ie "s/;\(sendmail_path =\).*$/\1 \/usr\/sbin\/ssmtp -t/" /etc/php/7.0/cli/php.ini
+# Install and configure mail
+RUN apt-get update && apt-get install -y exim4 && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN sed -ie "s/^\(dc_eximconfig_configtype=\).*$/\1'smarthost'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_smarthost=\).*$/\1'mail.cct.lsu.edu'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_readhost=\).*$/\1'docs.einsteintoolkit.org'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_hide_mailname=\).*$/\1'true'/" /etc/exim4/update-exim4.conf.conf && \
+    sed -ie "s/^\(dc_other_hostnames=\).*$/\1'localhost'/" /etc/exim4/update-exim4.conf.conf && \
+    update-exim4.conf
 
 RUN rm -rf /var/www/html/index.html
 #RUN rm -rf /var/www/html
