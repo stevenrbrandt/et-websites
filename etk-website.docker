@@ -1,9 +1,9 @@
 # The einsteintoolkit.org website.
 
-FROM debian:10
+FROM debian:13
 
 RUN apt-get update && \
-    apt-get install -y apache2 git subversion libapache2-mod-php php-curl php-imap \
+    apt-get install -y apache2 git subversion libapache2-mod-php php-curl \
     vim curl systemd logrotate libdate-manip-perl libwww-perl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
