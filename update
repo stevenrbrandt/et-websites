@@ -10,7 +10,7 @@ function pull {
   git pull
   git clean -dxf
   # ensure all files are visible no matter the permission bits in the repo
-  find . -print0 | xargs --null chmod o+rX
+  chmod o+rX -R .
   popd >/dev/null
 }
 
@@ -30,7 +30,7 @@ if curl $zflag -sSkLRO https://github.com/einsteintoolkit/$REPO_NAME/archive/ref
   if [ HTML.tar.gz -nt HTML.tar.gz.old ] ; then
     echo "Updating HTML documentation"
       if tar xzf HTML.tar.gz ; then
-        find $REPO_NAME-HTML -print0 | xargs --null chmod o+rX
+        chmod o+rX -R $REPO_NAME-HTML
         rm -rf documentation
         mv $REPO_NAME-HTML documentation
       fi
