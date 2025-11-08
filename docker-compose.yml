@@ -20,6 +20,8 @@ services:
                 delay: 10s
                 max_attempts: 10
                 window: 30s
+        security_opt:
+              - seccomp:unconfined
 
         # This setting makes it possible to
         # get a bash shell in the container
