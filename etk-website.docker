@@ -6,6 +6,10 @@ RUN apt-get update && \
     apt-get install -y apache2 git subversion libapache2-mod-php php-curl \
     vim curl systemd logrotate libdate-manip-perl libwww-perl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN sed -ie "s/rotate  *14/rotate 7/" /etc/logrotate.d/apache2 && \
+    sed -ie "/^[[:space:]]*rotate /i size 1G" /etc/logrotate.d/apache2 &&\
+    sed -ie "s/rotate  *14/rotate 7/" /etc/logrotate.d/apache2e && \
+    sed -ie "/^[[:space:]]*rotate /i size 1G" /etc/logrotate.d/apache2e
 
 # Install and configure mail
 RUN apt-get update && apt-get install -y exim4 && apt-get clean && rm -rf /var/lib/apt/lists/*
