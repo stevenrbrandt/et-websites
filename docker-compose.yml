@@ -13,7 +13,7 @@ services:
         build:
            context: .
            dockerfile: etk-website.docker 
-        image: stevenrbrandt/etk-website
+        image: einsteintoolkit/etk-website
         deploy:
             restart_policy:
                 condition: any
