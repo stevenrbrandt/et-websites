@@ -18,7 +18,6 @@ services:
             restart_policy:
                 condition: any
                 delay: 10s
-                max_attempts: 10
                 window: 30s
         security_opt:
               - seccomp:unconfined
